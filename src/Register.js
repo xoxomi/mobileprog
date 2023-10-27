@@ -4,8 +4,10 @@ import React, { useState } from "react"
 export const Register = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
     const [name, setName] = useState('');
     const [passwordStrength, setPasswordStrength] = useState('');
+    const [passwordMatch, setPasswordMatch] = useState(true);
     
 
     const evaluatePasswordStrength = (password) => {
@@ -23,6 +25,12 @@ export const Register = (props) => {
         setPasswordStrength(strength);
     };
 
+    const handleConfirmPasswordChange = (e) => {
+        const newConfirmPassword = e.target.value;
+        setConfirmPassword(newConfirmPassword);
+        setPasswordMatch(newConfirmPassword === password);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(email);
@@ -37,12 +45,12 @@ export const Register = (props) => {
     }
 
     const handleCancel = () => {
+        props.onFormSwitch('Login');
     }
 
     return (
         <div className="Container">
             <div className="dd"><h1>Degree Deals</h1></div>
-            <hr></hr>
             <form className="RegisterForm" onSubmit={handleSubmit}>
                     <label htmlFor="name">Full Name</label>
                     <input
@@ -52,7 +60,10 @@ export const Register = (props) => {
                     <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter your email" id="email" name="email" />
                     <label htmlFor="Password">Password</label>
                     <input value={password} onChange={handlePasswordChange} type="password" placeholder="Enter your password" id="password" name="password" />
+                    <label htmlFor="confirmPassword">Confirm Password</label>
+                    <input value={confirmPassword} onChange={handleConfirmPasswordChange} type="password" placeholder="Confirm your password" id="confirmPassword" me="confirmPassword"/>
                     {password && <div>Password Strength: {passwordStrength}</div>}
+                    {!passwordMatch && <div className="error-message">Passwords do not match</div>}
                     <div className="button-container">
                         <button type="button" onClick={handleCancel}>Cancel</button>
                         <button type="submit">Sign up</button>
