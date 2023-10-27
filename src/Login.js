@@ -41,7 +41,6 @@ export const Login = (props) => {
     return (
     <div className="Container">
         <div className="dd"><h1>Degree Deals</h1></div>
-        <hr></hr>
         <form className="LoginForm" onSubmit={handleSubmit}>
                 <label htmlFor="email">Email</label>
                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter your email" id="email" name="email" />
